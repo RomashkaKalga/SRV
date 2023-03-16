@@ -1,0 +1,39 @@
+.LC0:
+        .string "\320\222\320\262\320\265\320\264\320\270\321\202\320\265 \321\207\320\270\321\201\320\273\320\276:  "
+.LC1:
+        .string "%d"
+.LC2:
+        .string "\320\232\320\262\320\260\320\264\321\200\320\260\321\202\320\275\321\213\320\271 \320\272\320\276\321\200\320\265\320\275\321\214 = %d\n"
+main:
+        push    rbp  // начало функции
+        mov     rbp, rsp  // mov копирует содержимое из rsp и помещает его в rbp
+        sub     rsp, 16  //sub - разность
+        mov     edi, OFFSET FLAT:.LC0  //Введите число: (printf)
+        mov     eax, 0
+        call    printf  // вызов функции в подпрограмме
+        lea     rax, [rbp-16]
+        mov     rsi, rax
+        mov     edi, OFFSET FLAT:.LC1
+        mov     eax, 0
+        call    scanf  // вызов функции в подпрограмме
+        mov     DWORD PTR [rbp-4], 1    // введение переменной со значением 1
+        mov     DWORD PTR [rbp-8], 0    // введение переменной со значением 0
+        mov     DWORD PTR [rbp-12], 0
+        jmp     .L2  // начало цикла
+.L3:
+        mov     eax, DWORD PTR [rbp-4] // summa = summa + 1
+        add     DWORD PTR [rbp-12], eax
+        add     DWORD PTR [rbp-4], 2  // a = a + 2 
+        add     DWORD PTR [rbp-8], 1  // b++
+.L2:
+        mov     eax, DWORD PTR [rbp-16]  // цикл
+        cmp     DWORD PTR [rbp-12], eax  // cmp - сравнение двух аргументов
+        jl      .L3
+        mov     eax, DWORD PTR [rbp-8]  //вывод значения (функция printf)
+        mov     esi, eax
+        mov     edi, OFFSET FLAT:.LC2
+        mov     eax, 0
+        call    printf
+        mov     eax, 0
+        leave
+        ret

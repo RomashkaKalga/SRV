@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+int main()
+{
+    int n;
+    printf("Введите число:  ");
+    scanf("%d", &n);
+    int a = 1;
+    int b = 0;
+    int summa = 0;
+    while (summa < n) {
+        summa = summa + a;
+        a = a + 2;
+        b++;
+    }
+    printf("Квадратный корень = %d\n", b);
+    return 0;
+}
